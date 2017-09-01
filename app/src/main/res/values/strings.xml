@@ -1,3 +1,7 @@
 <resources>
   <string name="app_name">Translate_tool</string>
+  <!--首页-->
+  <string name="main_translate">翻译</string>
+  <string name="main_translate_key">输入关键字</string>
+  <string name="main_clear">清除</string>
 </resources>

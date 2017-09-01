@@ -17,7 +17,7 @@ public class BasePresenter<V extends IBaseView> {
 //  protected SingleRequestService mSingleRequestService;
   protected LiteOrm mLiteOrm;
   protected Context mContext;
-  protected FileManager mFileManager = new FileManager();
+//  protected FileManager mFileManager = new FileManager();
   public BasePresenter(LiteOrm liteOrm, WarpAipService apiService,Context context) {
     mLiteOrm = liteOrm;
     mWarpApiService = apiService;

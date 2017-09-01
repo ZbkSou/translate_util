@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatDelegate;
 import com.facebook.stetho.Stetho;
 import com.ihaveu.iuzuan.translate_tool.BuildConfig;
 import com.ihaveu.iuzuan.translate_tool.injection.components.AppComponent;
+import com.ihaveu.iuzuan.translate_tool.injection.components.DaggerAppComponent;
 import com.ihaveu.iuzuan.translate_tool.injection.modules.ApiServiceModel;
 import com.ihaveu.iuzuan.translate_tool.injection.modules.AppModule;
 import com.ihaveu.iuzuan.translate_tool.util.LogUtil;

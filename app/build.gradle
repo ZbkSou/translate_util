@@ -40,6 +40,7 @@ dependencies {
     // Google
     compile "com.google.dagger:dagger:${libs.dagger}"
     apt "com.google.dagger:dagger-compiler:${libs.dagger}"
+    provided "org.glassfish:javax.annotation:${libs.javax_annotation}"
     // Square
     compile "com.jakewharton:butterknife:${libs.butterknife}"
     apt "com.jakewharton:butterknife-compiler:${libs.butterknife}"
@@ -48,4 +49,10 @@ dependencies {
     compile "com.squareup.retrofit2:adapter-rxjava:${libs.retrofit}"
     // Reactive
     compile "io.reactivex:rxandroid:${libs.rxandroid}"
+//    android
+    compile "com.android.support:recyclerview-v7:${libs.supportVersion}"
+    compile "com.android.support:appcompat-v7:${libs.supportVersion}"
+    compile "com.android.support:design:${libs.supportVersion}"
+
+
 }
