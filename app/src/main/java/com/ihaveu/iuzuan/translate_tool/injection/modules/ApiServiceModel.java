@@ -33,13 +33,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class ApiServiceModel {
 
-  @Provides
-  @Singleton
-  ApiBaidu provideApiBaidu() {
-    return createService(ETranslateFrom.BAI_DU);
-  }
+    @Provides
+    @Singleton
+    ApiBaidu provideApiBaidu() {
+        return createService(ETranslateFrom.BAI_DU);
+    }
 
-//  @Provides
+    //  @Provides
 //  @Singleton
 //  ApiYouDao provideApiYouDao() {
 //    return createService(ETranslateFrom.YOU_DAO);
@@ -54,40 +54,41 @@ public class ApiServiceModel {
 //  @Provides
 //  @Singleton
 //  ApiGoogle provideApiGoogle(){return createService(ETranslateFrom.GOOGLE);}
-  private <S> S createService(ETranslateFrom type) {
-    Retrofit.Builder builder = new Retrofit.Builder()
-      .baseUrl(HttpUrl.parse(type.getUrl()))
-      .addConverterFactory(GsonConverterFactory.create())
-      .addCallAdapterFactory(RxJavaCallAdapterFactory.create());
-    builder.client(provideOkHttpClient());
-    return (S) builder.build().create(type.getAqiClass());
-  }
-  @Provides
-  @Singleton
-  OkHttpClient provideOkHttpClient() {
-    Cache cache = new Cache(BaseApplication.get().getCacheDir(), 10240 * 1024);
-    OkHttpClient.Builder builder = new OkHttpClient.Builder();
-    if (BuildConfig.DEBUG) {
-      builder.addNetworkInterceptor(new StethoInterceptor());
+    private <S> S createService(ETranslateFrom type) {
+        Retrofit.Builder builder = new Retrofit.Builder()
+            .baseUrl(HttpUrl.parse(type.getUrl()))
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJavaCallAdapterFactory.create());
+        builder.client(provideOkHttpClient());
+        return (S) builder.build().create(type.getAqiClass());
     }
-    builder.addNetworkInterceptor(new CacheInterceptor())
-      .cache(cache)
-      .connectTimeout(20, TimeUnit.SECONDS)
-      .readTimeout(20, TimeUnit.SECONDS);
-    return builder.build();
-  }
 
-  private class CacheInterceptor implements Interceptor {
-    @Override
-    public Response intercept(Chain chain) throws IOException {
-      Request request = chain.request();
-      Response response = chain.proceed(request);
-      return response.newBuilder()
-        .removeHeader("Pragma")
-        .removeHeader("Cache-Control")
-        //cache for 30 days
-        .header("Cache-Control", "max-age=" + 3600 * 24 * 30)
-        .build();
+    @Provides
+    @Singleton
+    OkHttpClient provideOkHttpClient() {
+        Cache cache = new Cache(BaseApplication.get().getCacheDir(), 10240 * 1024);
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        if (BuildConfig.DEBUG) {
+            builder.addNetworkInterceptor(new StethoInterceptor());
+        }
+        builder.addNetworkInterceptor(new CacheInterceptor())
+            .cache(cache)
+            .connectTimeout(20, TimeUnit.SECONDS)
+            .readTimeout(20, TimeUnit.SECONDS);
+        return builder.build();
     }
-  }
+
+    private class CacheInterceptor implements Interceptor {
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            Request request = chain.request();
+            Response response = chain.proceed(request);
+            return response.newBuilder()
+                .removeHeader("Pragma")
+                .removeHeader("Cache-Control")
+                //cache for 30 days
+                .header("Cache-Control", "max-age=" + 3600 * 24 * 30)
+                .build();
+        }
+    }
 }

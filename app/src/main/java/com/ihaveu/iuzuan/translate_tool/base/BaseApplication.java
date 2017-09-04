@@ -31,6 +31,7 @@ public class BaseApplication extends Application{
       .appModule(new AppModule(this))
       .apiServiceModel(new ApiServiceModel())
       .build();
+      LogUtil.d(mAppComponent.toString());
     Stetho.initializeWithDefaults(this);
   }
 
